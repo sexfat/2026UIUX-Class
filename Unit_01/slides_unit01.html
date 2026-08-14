@@ -430,6 +430,8 @@ h2 {
 }
 #ctrls button:hover { background: rgba(29,29,31,.12); transform: scale(1.06); }
 #ctrls button:active { transform: scale(.94); }
+#ctrls.dark button { background: rgba(255,255,255,.12); color: #f5f5f7; }
+#ctrls.dark button:hover { background: rgba(255,255,255,.2); }
 
 /* ── Comparison table ───────────────────── */
 .cmp-table {
@@ -983,10 +985,12 @@ h2 {
 <script>
 (function () {
   const slides = Array.from(document.querySelectorAll('.slide'));
+  const ctrls  = document.getElementById('ctrls');
   const total  = slides.length;
   const prog   = document.getElementById('prog');
   const dotContainers = Array.from(document.querySelectorAll('.dots'));
   let cur = 0;
+  ctrls.classList.toggle('dark', slides[0].classList.contains('dark'));
 
   // Build dots in every footer
   dotContainers.forEach(container => {
@@ -1002,6 +1006,7 @@ h2 {
     slides[cur].classList.remove('active');
     cur = (n + total) % total;
     slides[cur].classList.add('active');
+    ctrls.classList.toggle('dark', slides[cur].classList.contains('dark'));
 
     // Progress bar
     prog.style.width = ((cur + 1) / total * 100) + '%';
