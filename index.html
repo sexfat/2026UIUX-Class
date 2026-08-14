@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UI 設計實作：Figma 與 UX 流程 × AI 設計整合 · 課程總覽</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #fbfbfd;
+  --dark:    #1d1d1f;
+  --muted:   #86868b;
+  --accent:  #0066cc;
+  --accent3: #4094ff;
+  --surface: #f5f5f7;
+  --card:    #e8e8ed;
+  --border:  #d2d2d7;
+  --max-w:   1080px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  -webkit-font-smoothing: antialiased;
+  padding: 0 24px 100px;
+}
+
+/* ── Hero ────────────────────────────────── */
+.hero {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 72px 0 40px;
+  border-bottom: 1px solid var(--border);
+}
+
+.overline {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: -.045em;
+  line-height: 1.08;
+  color: var(--dark);
+  margin-bottom: 18px;
+}
+
+.hero p {
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.7;
+  letter-spacing: -.01em;
+  max-width: 640px;
+}
+
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.meta-chip {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--dark);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 7px 14px;
+  border-radius: 20px;
+}
+.meta-chip b { color: var(--accent); font-weight: 700; }
+a.meta-chip { text-decoration: none; transition: border-color .2s, color .2s; }
+a.meta-chip:hover { color: var(--accent); border-color: rgba(0,102,204,.3); }
+
+/* ── Section heading ─────────────────────── */
+.section-head {
+  max-width: var(--max-w);
+  margin: 56px auto 24px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+.section-head h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -.03em;
+  color: var(--dark);
+}
+.section-head span {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ── Unit grid ───────────────────────────── */
+.grid {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.unit {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px 24px 20px;
+  transition: border-color .2s, box-shadow .2s, transform .15s;
+  overflow: hidden;
+}
+.unit:hover {
+  border-color: rgba(0,102,204,.3);
+  box-shadow: 0 8px 30px rgba(0,0,0,.06);
+  transform: translateY(-2px);
+}
+
+.unit-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.unit-no {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.09);
+  padding: 4px 11px;
+  border-radius: 20px;
+}
+
+.unit-hours {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.unit h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.4;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+.unit-desc {
+  font-size: .86rem;
+  color: var(--muted);
+  line-height: 1.6;
+  flex: 1;
+  margin-bottom: 18px;
+}
+
+.unit-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  text-decoration: none;
+  padding: 9px 16px;
+  border-radius: 10px;
+  transition: background .2s, color .2s, opacity .2s;
+}
+.btn-primary {
+  color: #fff;
+  background: var(--accent);
+}
+.btn-primary:hover { background: #0052a8; }
+.btn-primary::after { content: '↗'; font-size: 12px; }
+
+.btn-ghost {
+  color: var(--accent);
+  background: rgba(0,102,204,.07);
+}
+.btn-ghost:hover { background: rgba(0,102,204,.13); }
+
+.btn-soon {
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  cursor: default;
+}
+
+/* ── Footer note ─────────────────────────── */
+.foot {
+  max-width: var(--max-w);
+  margin: 64px auto 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.foot a { color: var(--accent); text-decoration: none; }
+.foot a:hover { text-decoration: underline; }
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 880px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; }
+  .hero { padding: 48px 0 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<header class="hero">
+  <p class="overline">UI 設計實作課程</p>
+  <h1>Figma 與 UX 流程<br>× AI 設計整合</h1>
+  <p>從 UX 設計流程導論到響應式網頁設計，走完一套完整的 Figma 實作課程，並融入 AI 工具輔助設計。本頁依 12 個單元順序整理教材連結。</p>
+  <div class="meta-row">
+    <span class="meta-chip"><b>12</b> 個單元</span>
+    <span class="meta-chip">總時數 <b>33</b> 小時</span>
+    <span class="meta-chip">對象：UI/UX 初學者</span>
+    <a class="meta-chip" href="https://sexfat.github.io/sassTailwind/" target="_blank" rel="noopener">CSS 工具應用：Sass 與 Tailwind 講義 ↗</a>
+  </div>
+</header>
+
+<!-- Units -->
+<div class="section-head">
+  <h2>課程單元</h2>
+  <span>依單元順序排列</span>
+</div>
+
+<main class="grid">
+
+  <!-- Unit 01 -->
+  <article class="unit">
+    <div class="unit-top">
+      <span class="unit-no">Unit 01</span>
+      <span class="unit-hours">3 小時</span>
+    </div>
+    <h3>UI/UX 與 AI 設計流程導論</h3>
+    <p class="unit-desc">UI 與 UX 的差異與關聯、完整 UX 設計流程各階段，以及 AI 工具在設計流程中的應用位置。</p>
+    <div class="unit-foot">
+      <a class="btn btn-primary" href="Unit_01/slides_unit01.html" target="_blank" rel="noopener">簡報</a>
+      <a class="btn btn-ghost" href="Unit_01/persona-prompt.html" target="_blank" rel="noopener">Persona 提示詞</a>
+    </div>
+  </article>
+
+  <!-- Unit 02 -->
+  <article class="unit">
+    <div class="unit-top">
+      <span class="unit-no">Unit 02</span>
+      <span class="unit-hours">3 小時</span>
+    </div>
+    <h3>設計思考與 AI 在設計與開發流程中的協作</h3>
+    <p class="unit-desc">設計思考的五個階段（同理、定義、發想、原型、測試），以及 AI 工具在各階段的協作方式。</p>
+    <div class="unit-foot">
+      <a class="btn btn-primary" href="Unit_02/slides_unit02.html" target="_blank" rel="noopener">簡報</a>
+      <a class="btn btn-ghost" href="Unit_02/prompt-guide.html" target="_blank" rel="noopener">提示詞指南</a>
+    </div>
+  </article>
+
+  <!-- Unit 03 -->
+  <article class="unit">
+    <div class="unit-top">
+      <span class="unit-no">Unit 03</span>
+      <span class="unit-hours">3 小時</span>
+    </div>
+    <h3>Figma 基礎操作與討論</h3>
+    <p class="unit-desc">Figma 介面與基本操作，包含 Frame、圖層管理、對齊與間距設定，邊講邊做完成簡單頁面版面。</p>
+    <div class="unit-foot">
+      <a class="btn btn-primary" href="Unit_03/slides.html" target="_blank" rel="noopener">簡報</a>
+    </div>
+  </article>
+
+  <!-- Unit 04 -->
+  <article class="unit">
+    <div class="unit-top">
+      <span class="unit-no">Unit 04</span>
+      <span class="unit-hours">3 小時</span>
+    </div>
+    <h3>Auto Layout、Constraints 與彈性版面</h3>
+    <p class="unit-desc">Auto Layout 的建立與屬性設定、Constraints 在不同螢幕尺寸下的響應行為，並實作彈性元件。</p>
+    <div class="unit-foot">
+      <a class="btn btn-primary" href="Unit_04/slides.html" target="_blank" rel="noopener">簡報</a>
+    </div>
+  </article>
+
+  <!-- Unit 05 -->
+  <article class="unit">
+    <div class="unit-top">
+      <span class="unit-no">Unit 05</span>
+      <span class="unit-hours">3 小時</span>
+    </div>
+    <h3>作業探討 第一次檢核點（個人專題）</h3>
+    <p class="unit-desc">整合前四單元所學，展示個人專題進度並接受同儕與老師回饋，釐清後續設計方向。</p>
+    <div class="unit-foot">
+      <a class="btn btn-primary" href="Unit_05/slides.html" target="_blank" rel="noopener">簡報</a>
+    </div>
+  </article>
+
+  <!-- Unit 06 -->
+  <article class="unit">
+    <div class="unit-top">
+      <span class="unit-no">Unit 06</span>
+      <span class="unit-hours">3 小時</span>
+    </div>
+    <h3>十大易用性原則與檢查表實務</h3>
+    <p class="unit-desc">Nielsen 十大易用性原則的內容與應用，搭配真實案例分析並實作易用性檢查表。</p>
+    <div class="unit-foot">
+      <a class="btn btn-primary" href="Unit_06/slides.html" target="_blank" rel="noopener">簡報</a>
+    </div>
+  </article>
+
+  <!-- Unit 07 -->
+  <article class="unit">
+    <div class="unit-top">
+      <span class="unit-no">Unit 07</span>
+      <span class="unit-hours">3 小時</span>
+    </div>
+    <h3>介面視覺基礎：版面、排版、色彩與一致性</h3>
+    <p class="unit-desc">視覺層級、網格與留白、色彩搭配邏輯，以及介面一致性對產品體驗的重要性。</p>
+    <div class="unit-foot">
+      <a class="btn btn-primary" href="Unit_07/slides.html" target="_blank" rel="noopener">簡報</a>
+    </div>
+  </article>
+
+  <!-- Unit 08 -->
+  <article class="unit">
+    <div class="unit-top">
+      <span class="unit-no">Unit 08</span>
+      <span class="unit-hours">3 小時</span>
+    </div>
+    <h3>元件、樣式與設計系統概念</h3>
+    <p class="unit-desc">Figma 元件與 Styles 的建立與管理、設計系統的組成，實作一套基礎元件庫。</p>
+    <div class="unit-foot">
+      <a class="btn btn-primary" href="Unit_08/slides.html" target="_blank" rel="noopener">簡報</a>
+    </div>
+  </article>
+
+  <!-- Unit 09 -->
+  <article class="unit">
+    <div class="unit-top">
+      <span class="unit-no">Unit 09</span>
+      <span class="unit-hours">3 小時</span>
+    </div>
+    <h3>完形心理學與介面設計規則（Laws of UX）</h3>
+    <p class="unit-desc">完形心理學核心原則與 Laws of UX 重要法則，用心理學觀點分析與強化介面設計。</p>
+    <div class="unit-foot">
+      <a class="btn btn-primary" href="Unit_09/slides.html" target="_blank" rel="noopener">簡報</a>
+    </div>
+  </article>
+
+  <!-- Unit 10 -->
+  <article class="unit">
+    <div class="unit-top">
+      <span class="unit-no">Unit 10</span>
+      <span class="unit-hours">3 小時</span>
+    </div>
+    <h3>主要頁面 UI 設計實作（含 AI 輔助）</h3>
+    <p class="unit-desc">將 Wireframe 升級為高保真 UI 頁面，並用 AI 工具輔助文案生成與假資料填充。</p>
+    <div class="unit-foot">
+      <a class="btn btn-primary" href="Unit_10/slides.html" target="_blank" rel="noopener">簡報</a>
+    </div>
+  </article>
+
+  <!-- Unit 11 -->
+  <article class="unit">
+    <div class="unit-top">
+      <span class="unit-no">Unit 11</span>
+      <span class="unit-hours">3 小時</span>
+    </div>
+    <h3>次頁、狀態頁與細節優化（案例展示）</h3>
+    <p class="unit-desc">補完次要頁面與空狀態、錯誤狀態、載入狀態等介面細節，並透過真實產品案例展示汲取靈感。</p>
+    <div class="unit-foot">
+      <a class="btn btn-primary" href="Unit_11/slides.html" target="_blank" rel="noopener">簡報</a>
+    </div>
+  </article>
+
+  <!-- Unit 12 -->
+  <article class="unit">
+    <div class="unit-top">
+      <span class="unit-no">Unit 12</span>
+      <span class="unit-hours">3 小時</span>
+    </div>
+    <h3>響應式網頁設計（RWD）</h3>
+    <p class="unit-desc">五種常見 RWD 版面設計模式、斷點設置策略，以及響應式圖片、表格與字型的規劃原則。</p>
+    <div class="unit-foot">
+      <a class="btn btn-primary" href="Unit_12/slides.html" target="_blank" rel="noopener">簡報</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="foot">
+  本頁是目前課程名稱、單元順序與教材狀態的主要依據。完整課程大綱請參考 <a href="class.md" target="_blank" rel="noopener">class.md</a>。
+</footer>
+
+</body>
+</html>
